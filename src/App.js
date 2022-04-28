@@ -240,9 +240,6 @@ function App() {
                   if (remainingTime - totalElapsedTime <=0) {
                     setShowBtn(true)
                   }
-
-                console.log(remainingTime,"hhehe")
-
                   return {
                   shouldRepeat: remainingTime - totalElapsedTime > 0
                 }}}
@@ -301,7 +298,7 @@ function App() {
           </div>
 
           <div className='text-title'>
-            What's the Utility?
+            What{"'"}s the Utility?
           </div>
           <div className='text-answer'>
           Vibe and Meme
