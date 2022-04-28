@@ -254,7 +254,7 @@ function App() {
            
           </div>
        
-        <div className={showBtn?'show-mint':'gray-mint'}>MINT NOW</div>
+        <div className={showBtn?'show-mint common-mint':'gray-mint common-mint'}>MINT NOW</div>
         </div>
       </div>
 
