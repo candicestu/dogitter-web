@@ -62,6 +62,7 @@ const web3Modal = new Web3Modal({
 });
 
 function App() {
+  console.log(process.env.REACT_APP_ENV)
   const currentYear = new Date().getFullYear();
   const stratTime = Date.now()/1000; // use UNIX timestamp in seconds
   const endTime = 1651334400; // use UNIX timestamp in seconds
