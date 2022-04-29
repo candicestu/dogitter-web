@@ -54,7 +54,7 @@ const renderTime = (dimension, time) => {
 
 const getTimeSeconds = (time) => (minuteSeconds - time) | 0;
 const getTimeMinutes = (time) => ((time % hourSeconds) / minuteSeconds) | 0;
-const getTimeHours = (time) => ((time % daySeconds) / hourSeconds) | 0;
+const getTimeHours = (time) => Math.floor(time / hourSeconds) | 0;
 
 const web3Modal = new Web3Modal({
   cacheProvider: true, // optional
@@ -63,9 +63,10 @@ const web3Modal = new Web3Modal({
 
 function App() {
   const currentYear = new Date().getFullYear();
-  const stratTime = Date.now() / 1000; // use UNIX timestamp in seconds
-  const endTime = 1651168800; // use UNIX timestamp in seconds
+  const stratTime = Date.now()/1000; // use UNIX timestamp in seconds
+  const endTime = 1651334400; // use UNIX timestamp in seconds
   const remainingTime = endTime - stratTime;
+  // console.log(stratTime,endTime,remainingTime/3600)
   // const days = Math.ceil(remainingTime / daySeconds);
   // const daysDuration = days * daySeconds;
 
@@ -89,7 +90,7 @@ function App() {
             const provider = await web3Modal.connect();
             const library = new ethers.providers.Web3Provider(provider);
             const accounts = await library.listAccounts();
-            const network = await library.getNetwork();
+            // const network = await library.getNetwork();
 
             if (accounts) setAccount(accounts[0])
 
@@ -197,18 +198,13 @@ function App() {
             <CountdownCircleTimer
               {...timerProps}
               colors="#D14081"
-              duration={daySeconds}
-              initialRemainingTime={remainingTime % daySeconds}
-              onComplete={(totalElapsedTime) => {
-                return {
-                shouldRepeat: remainingTime - totalElapsedTime > hourSeconds
-              }
-            }
-            }
+              duration={endTime}
+              initialRemainingTime={remainingTime }
             >
               {({ elapsedTime, color }) => (
+                // console.log(remainingTime,elapsedTime)
                 <span style={{ color }}>
-                  {renderTime("hours", getTimeHours(daySeconds - elapsedTime))}
+                  {renderTime("hours", getTimeHours( endTime-elapsedTime ))}
                 </span>
               )}
             </CountdownCircleTimer>

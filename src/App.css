@@ -239,9 +239,9 @@
   }
   .wallet-css {
     margin-right: 20px;
-    height: 50px;
-    margin-top: 15px;
-    padding: 12px 20px;
+    height: 40px;
+    margin-top: 20px;
+    padding: 7px 10px;
     border: 2px solid #282c34;
     /* background-color: antiquewhite; */
     font-weight: bolder;
@@ -251,11 +251,14 @@
   .wallet-css img {
     display: none;
   }
+
   .mint-css {
     display: block;
   }
   .mint-left {
-    width: 100%;
+    width: 85%;
+    margin: auto;
+    height: 340px;
   }
   .radius {
     width: 100%;
@@ -287,13 +290,14 @@
   }
   .question-left {
     float: none;
-    width: 100%;
-    margin-left: 0px;
+    width: 90%;
+
+    margin: auto;
     padding-bottom: 20px;
   }
-  item-css {
+  .item-css {
     /* width: 320px; */
-    margin: 0 5%;
+    margin: 10px 5%;
   }
   .item-img > img {
     border-radius: 12px;
