@@ -33,11 +33,6 @@ import item8 from './static/images/item8.jpeg'
 import item9 from './static/images/item9.jpeg'
 import mp3 from './static/mp3/back-music.mp3'
 
-
-
-
-
-
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 const minuteSeconds = 60;
@@ -86,44 +81,18 @@ function App() {
   const [account,setAccount] = useState("")
   const [showBtn,setShowBtn] = useState(false)
   const [mintMsg,setMintMsg] = useState("MINT NOW")
+  const [hasPlay,setHasPlay] = useState(true)
+  const [network,setNetwork] = useState(null)
 
-  const vidRef = useRef();
-  useEffect(() => { 
-    // var video=document.getElementById("startvideo"); 
-    // video.play(); 
-    // console.log(11111)
-  
-  //   setTimeout(function() {
-  //     var music = document.getElementById("bgmusic");//获取ID
-  //     // console.log(music);
-  //     // console.log(music.paused);
-  // if (music.paused) { //判读是否播放
-  //     // music.paused=false;
-  //     music.play(); //没有就播放
-  // }
-  //     // document.body.addEventListener("mousemove", function () {
-  //       console.log(vidRef.current.paused)
-  //       if (vidRef.current.paused){
-  //         // vidRef.current.paused = false
-  //         vidRef.current.play(); 
-  //       }
-  //   // })
-  // }, 1000);
-  
-    // const pro = vidRef.current.play(); 
-    // if(pro !== undefined){
-    //   pro.then(() => {
-    //     vidRef.current.play()
-    //       // Autoplay started
-    //   }).catch(error => {
-    //       // Autoplay was prevented.
-    //       // vidRef.current.muted = true;
-    //       vidRef.current.play();
-      // });
-  // }
 
-  },[]);
-  
+  const toPlayMusic = ()=>{
+    var music = document.getElementById("bgmusic")
+     if (hasPlay) { 
+      // music.paused=false;
+      music.play(); 
+      setHasPlay(false)
+    }
+  }
 
   const toast = useToast()
   
@@ -145,7 +114,8 @@ function App() {
           const library = new ethers.providers.Web3Provider(provider);
           const accounts = await library.listAccounts();
           const network = await library.getNetwork();
-          console.log(network)
+          setNetwork(network)
+          // console.log(network)
           if (accounts) setAccount(accounts[0])
 
           setProvider(provider);
@@ -200,6 +170,17 @@ function App() {
       connectWallet()
       return
     }
+    if (network.chainId !==4){
+      toast({
+        position: 'top',
+        title: 'Mint error.',
+        description: 'please change your network to Rinkeby',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+      return;
+    }
     if (!userProof.hasOwnProperty(account)){
       toast({
         position: 'top',
@@ -221,51 +202,48 @@ function App() {
     }
     const  web3 = new Web3(prov);
     const contract =  new web3.eth.Contract(current_abi, contract_address,{ gasLimit: "1000000" })
-    const mintFees = await contract.methods.whitelistMinted().call({
-      from: account,
-      to: contract_address
-    });
-    const test = await contract.methods.whitelistMerkleRoot().call({
-      from: account,
-      to: contract_address
-    });
-
-    console.log(test,mintFees,current_abi,contract,contract_address)
-    contract
-    .methods
-    .mintWL(userProof[account]).send({
-      from: account,
-      to: contract_address,
-    })
-    .on('transactionHash', function(hash){
-  })
-    .on("receipt", function (receipt) {
-      // data.tx = receipt.transactionHash
-      // processOrderQueued(data)
-      toast({
-        position: 'top',
-        title: 'Mint success',
-        // description: error.message,
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
+    // console.log(network)
+    try {
+      contract
+      .methods
+      .mintWL(userProof[account]).send({
+        from: account,
+        to: contract_address,
       })
-      setMintMsg("MINT NOW")
-      setShowBtn(true)
+      .on('transactionHash', function(hash){
     })
-    .on("error", function (error, receipt) {
-      toast({
-        position: 'top',
-        title: 'Mint error.',
-        description: error.message,
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
+      .on("receipt", function (receipt) {
+        // data.tx = receipt.transactionHash
+        // processOrderQueued(data)
+        toast({
+          position: 'top',
+          title: 'Mint success',
+          // description: error.message,
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
+        setMintMsg("MINT NOW")
+        setShowBtn(true)
+      })
+      .on("error", function (error, receipt) {
+        toast({
+          position: 'top',
+          title: 'Mint error.',
+          description: error.message,
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+  
+        setMintMsg("MINT NOW")
+        setShowBtn(true)
       })
 
-      setMintMsg("MINT NOW")
-      setShowBtn(true)
-    });
+    } catch (error) {
+      console.log(error.message)
+    }
+   
   }
   // const children = ({ remainingTime }) => {
   //   const hours = Math.floor(remainingTime / 3600)
@@ -276,7 +254,7 @@ function App() {
   // }
 
   return (
-    <div className="App">
+    <div className="App" onClick={toPlayMusic}>
       <div className='header-css'>
         <div className='web-name'>Dogitter</div>
         
@@ -300,11 +278,9 @@ function App() {
         </div>
       </div>
       <div className='banner-css'>
-      <img src={banner} className='mt-fu10' alt="" />
+        <img src={banner} className='mt-fu10' alt="" />
       </div>
-      <div className='empty'>
-
-      </div>
+      <div className='empty'></div>
       <div className='mint-css'>
         <div className='mint-left'>
           <div className='radius'>
@@ -323,7 +299,7 @@ function App() {
             <audio 
             id="bgmusic" 
             style={{margin:"auto",marginBottom:'10px',height:"30px"}} 
-            src={mp3} loop ref={ vidRef } autoPlay controls  >
+            src={mp3} loop autoPlay controls  >
               </audio>
               <a 
               href='https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/101324149589609765444097150160926508741381014360825123442161062350724593091060/'  
@@ -392,12 +368,13 @@ function App() {
             </div>
            
           </div>
-        {
-          showBtn?
-            <div onClick={toMint} className='show-mint common-mint'>{mintMsg}</div>
-          :
-            <div className='gray-mint common-mint'>{mintMsg}</div>
-        }
+            {
+            showBtn?
+              <div onClick={toMint} className='show-mint common-mint'>{mintMsg}</div>
+            :
+              <div className='gray-mint common-mint'>{mintMsg}</div>
+          }
+         
         </div>
       </div>
 

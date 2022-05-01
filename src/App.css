@@ -158,14 +158,33 @@
   margin-top: 220px;
   display: flex;
 }
-
+.mint-line {
+  display: flex;
+  justify-content: center;
+}
+.has-mint {
+  height: 60px;
+  padding: 20px 20px;
+  /* font-weight: bolder; */
+  margin-top: 40px;
+}
+.has-mint > div {
+  background-color: rgb(101, 211, 101);
+  /* border: 1px solid #61dafb; */
+  padding: 2px 5px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: white;
+}
 .show-mint {
   background-color: rgb(0, 174, 255);
   color: white;
 }
+
 .common-mint {
   height: 60px;
   padding: 10px 20px;
+  /* width: 50%; */
   background-color: rgb(0, 174, 255);
   color: white;
   font-size: 24px;
