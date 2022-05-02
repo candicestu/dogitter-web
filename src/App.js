@@ -1,4 +1,4 @@
-import { useState,useEffect,useRef } from 'react';
+import { useState,useEffect } from 'react';
 import Web3Modal from "web3modal";
 import Web3 from 'web3';
 import { useToast } from '@chakra-ui/react'
@@ -37,7 +37,6 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 const minuteSeconds = 60;
 const hourSeconds = 3600;
-const daySeconds = 86400;
 
 const timerProps = {
   isPlaying: true,
@@ -174,7 +173,7 @@ function App() {
       toast({
         position: 'top',
         title: 'Mint error.',
-        description: 'please change your network to Rinkeby',
+        description: 'please change your network to Mainnet',
         status: 'error',
         duration: 3000,
         isClosable: true,
