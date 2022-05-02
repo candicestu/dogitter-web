@@ -74,7 +74,7 @@ function App() {
   const currentYear = new Date().getFullYear();
   const stratTime = Date.now()/1000; // use UNIX timestamp in seconds
   // const endTime = 1651334400; // use UNIX timestamp in seconds
-  const endTime = 0; // use UNIX timestamp in seconds
+  const endTime = 1651507200; // use UNIX timestamp in seconds
   const remainingTime = endTime - stratTime;
 
   const [provider,setProvider] = useState(null)
@@ -170,7 +170,7 @@ function App() {
       connectWallet()
       return
     }
-    if (network.chainId !==4){
+    if (network.chainId !==1){
       toast({
         position: 'top',
         title: 'Mint error.',
