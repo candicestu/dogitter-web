@@ -288,11 +288,15 @@ function App() {
         </div>
         <div className='mint-right'>
         <div className='mg-t-20'>
-            <div className='mg-10 height-50 font-size-26'>
-            What is freedom of speech?
+            <div className='mg-10 height-60 font-size-14 text-left'>
+           <p className='line-height'>Dogitter ($DTER) are a meme project in the public </p> 
+           <p className='line-height'> domain (CC0) to commemorate Dogefather{"'"}s vision,</p> 
+           <p className='line-height'>feel free  to meme your Dogitter to the Moon. </p> 
+
+            {/* What is freedom of speech? */}
             </div>
-            <div className='mg-10 height-50 font-size-26'>
-            Dogitter is more than just a meme.
+            <div className='mg-10  height-60 font-size-14 text-left'>
+            Beating NASA {'&'} SpaceX to Mars Landing in 2022.
             </div>
             <div className='mp3-css'>
             <audio 
