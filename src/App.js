@@ -276,7 +276,7 @@ function App() {
           </div>
           <div className='link-css'>
             <a href='https://twitter.com/Dogitter_NFT' rel="noreferrer noopener"  target="_blank"><img src={twitter}  alt="" width={30} /></a>
-            <a href='https://opensea.io/collection/dogitter-official' rel="noreferrer noopener"  target="_blank"><img src={opensea}  alt="" width={30} /></a>
+            {/* <a href='https://opensea.io/collection/dogitter-official' rel="noreferrer noopener"  target="_blank"><img src={opensea}  alt="" width={30} /></a> */}
         </div>
       </div>
       <div className='banner-css'>
@@ -376,7 +376,8 @@ function App() {
           </div>
             {
             showBtn?
-              <div onClick={toMint} className='show-mint common-mint'>{mintMsg}</div>
+            <div className='gray-mint common-mint'>{mintMsg}</div>
+              // <div onClick={toMint} className='show-mint common-mint'>{mintMsg}</div>
             :
               <div className='gray-mint common-mint'>{mintMsg}</div>
           }
