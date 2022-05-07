@@ -22,6 +22,8 @@ import banner from './static/images/banner.jpeg'
 // import money from './static/images/money.jpeg'
 import fei from './static/images/fei.jpeg'
 import twitter from './static/images/twitter.svg'
+import opensea from './static/images/opensea1.svg'
+
 import twitter2 from './static/images/twitter2.svg'
 import item1 from './static/images/item1.jpeg'
 import item2 from './static/images/item2.jpeg'
@@ -273,7 +275,8 @@ function App() {
           }
           </div>
           <div className='link-css'>
-            <a href='https://twitter.com/Dogitter_NFT' rel="noreferrer noopener"  target="_blank"><img src={twitter}  alt="" width={40} /></a>
+            <a href='https://twitter.com/Dogitter_NFT' rel="noreferrer noopener"  target="_blank"><img src={twitter}  alt="" width={30} /></a>
+            <a href='https://opensea.io/collection/dogitter-official' rel="noreferrer noopener"  target="_blank"><img src={opensea}  alt="" width={30} /></a>
         </div>
       </div>
       <div className='banner-css'>
